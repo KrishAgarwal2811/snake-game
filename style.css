@@ -7,20 +7,80 @@ body {
   -webkit-user-select: none;
 }
 
-header {
-  font-family: "Inter";
-  display: grid;
-  grid-template-columns: auto 3.5rem;
+body > section {
+  display: none;
+}
+
+body > .active {
+  display: block;
+}
+
+section {
+  background: #171b1f;
+  height: 100%;
   width: 100vw;
+  min-height: 100vh;
+  max-width: 100vw;
+}
+
+#home header,
+#howtoplay header,
+#game header {
+  font-family: "Inter";
   margin: 0;
-}
-
-header * {
-  margin: auto 0;
-}
-
-#logo {
+  color: white;
+  font-size: 2rem;
+  padding: 1rem 0 1rem 0;
   text-align: center;
+}
+
+#home header *,
+#howtoplay header *,
+#game header * {
+  margin: auto;
+}
+
+#home #buttons {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: calc(100vh - 5rem);
+  gap: 1rem;
+  width: 100vw;
+}
+
+#home #buttons button {
+  width: clamp(15ch, 90vw, 25ch);
+  padding: 0.8rem;
+  font-family: Inter;
+  font-size: 2rem;
+  border-radius: 15px;
+  background: transparent;
+  border: 2px solid white;
+  color: white;
+}
+
+#howtoplay #howto-text {
+  color: whitesmoke;
+  font-family: Inter, sans-serif;
+  padding: 1rem;
+  margin-top: 0;
+  padding-top: 0;
+}
+
+#howtoplay #howto-text a {
+  color: lightblue;
+}
+
+#game header {
+  display: grid;
+  grid-template-columns: auto 5rem;
+}
+
+#game header {
+  padding: 0;
+  margin: 0;
 }
 
 #pause-btn {
@@ -30,6 +90,7 @@ header * {
   cursor: pointer;
   display: grid;
   place-items: center;
+  fill: whitesmoke;
 }
 
 #pause-btn svg {
@@ -55,4 +116,17 @@ header * {
 #canvas-container {
   display: grid;
   place-items: center;
+}
+
+@media only screen and (max-width: 425px) {
+  #home #buttons button {
+    transform: scale(0.95);
+    font-size: 1.5rem;
+  }
+  #game header > p {
+    font-size: 1.5rem;
+  }
+  #game header > div {
+    transform: scale(0.7);
+  }
 }

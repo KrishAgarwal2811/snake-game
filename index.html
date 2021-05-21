@@ -8,37 +8,81 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <header>
-      <p id="logo">SNAKE GAME</p>
-      <div id="pause-btn" class="paused">
-        <svg
-          aria-hidden="true"
-          focusable="false"
-          role="img"
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 448 512"
-          id="play"
-        >
-          <path
-            d="M144 479H48c-26.5 0-48-21.5-48-48V79c0-26.5 21.5-48 48-48h96c26.5 0 48 21.5 48 48v352c0 26.5-21.5 48-48 48zm304-48V79c0-26.5-21.5-48-48-48h-96c-26.5 0-48 21.5-48 48v352c0 26.5 21.5 48 48 48h96c26.5 0 48-21.5 48-48z"
-          ></path>
-        </svg>
-        <svg
-          aria-hidden="true"
-          focusable="false"
-          role="img"
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 448 512"
-          id="pause"
-        >
-          <path
-            d="M424.4 214.7L72.4 6.6C43.8-10.3 0 6.1 0 47.9V464c0 37.5 40.7 60.1 72.4 41.3l352-208c31.4-18.5 31.5-64.1 0-82.6z"
-          ></path>
-        </svg>
+    <section id="home" class="active">
+      <header>
+        <p id="logo">SNAKE GAME</p>
+      </header>
+      <div id="buttons">
+        <button id="play">Play</button>
+        <button id="howto">How to play</button>
+        <button id="high">High Score: <span id="highScore">0</span></button>
       </div>
-    </header>
-    <div id="canvas-container">
-      <canvas></canvas>
-    </div>
+    </section>
+    <section id="howtoplay" class="">
+      <header>
+        <p id="logo">SNAKE GAME</p>
+      </header>
+      <div id="howto-text">
+        <h1>What is this game?</h1>
+        <p>
+          Snake is a very popular game in which a snake like object ressembles
+          the movement of a snake which is controlled by the user with an aim to
+          eat food. Commonly the food is an apple. As the snake eats the apple
+          it grows in size. If you want to know more about the snake game you
+          can refer
+          <a href="https://en.wikipedia.org/wiki/Snake_(video_game_genre)"
+            >this wiki.</a
+          >
+        </p>
+        <h1>How to play?</h1>
+        <p>
+          To control the snake in this game you can use the arrow keys of your
+          keyboard or ASWD keys (which ressembles the direction as of arrow
+          keys). If you are on a touch screen device then voila you can swipe on
+          the screen to change the direction of the snake. The swipe detector
+          code has been take from the
+          <a href="https://code.sololearn.com/WuyhENGspTul">library</a> by
+          <a href="https://www.sololearn.com/profile/12336223">Good Bits</a>.
+        </p>
+        <p>
+          You can use the space bar to pause/play the game and also a pause
+          button on the header is provided to pause/play the game.
+        </p>
+      </div>
+    </section>
+    <section id="game" class="">
+      <header id="game-head">
+        <p id="logo">SNAKE GAME</p>
+        <div id="pause-btn" class="paused">
+          <svg
+            aria-hidden="true"
+            focusable="false"
+            role="img"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 448 512"
+            id="play"
+          >
+            <path
+              d="M144 479H48c-26.5 0-48-21.5-48-48V79c0-26.5 21.5-48 48-48h96c26.5 0 48 21.5 48 48v352c0 26.5-21.5 48-48 48zm304-48V79c0-26.5-21.5-48-48-48h-96c-26.5 0-48 21.5-48 48v352c0 26.5 21.5 48 48 48h96c26.5 0 48-21.5 48-48z"
+            ></path>
+          </svg>
+          <svg
+            aria-hidden="true"
+            focusable="false"
+            role="img"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 448 512"
+            id="pause"
+          >
+            <path
+              d="M424.4 214.7L72.4 6.6C43.8-10.3 0 6.1 0 47.9V464c0 37.5 40.7 60.1 72.4 41.3l352-208c31.4-18.5 31.5-64.1 0-82.6z"
+            ></path>
+          </svg>
+        </div>
+      </header>
+      <div id="canvas-container">
+        <canvas></canvas>
+      </div>
+    </section>
   </body>
 </html>

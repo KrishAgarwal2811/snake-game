@@ -7,7 +7,7 @@ let running = false;
 let apple;
 let frames = 0;
 
-alert("You can use arrow keys or ASWD or swipe to move the snake.");
+// alert("You can use arrow keys or ASWD or swipe to move the snake.");
 
 // All indipendent fucntions lie here
 function dist(x1, x2, y1, y2) {
@@ -286,7 +286,7 @@ function draw() {
   canvas = document.querySelector("canvas");
   ctx = canvas.getContext("2d");
 
-  let pauseBtn = document.querySelector("#pause-btn");
+  let pauseBtn = document.querySelector("#game-head");
 
   canvas.width = Math.floor(window.innerWidth / scl) * scl;
   canvas.height =
