@@ -75,10 +75,11 @@ section {
 
 #game header {
   display: grid;
-  grid-template-columns: auto 5rem;
+  grid-template-columns: 5rem auto 5rem;
 }
 
-#game header {
+#game header,
+#howtoplay header {
   padding: 0;
   margin: 0;
 }
@@ -93,7 +94,19 @@ section {
   fill: whitesmoke;
 }
 
-#pause-btn svg {
+#howtoplay header {
+  display: grid;
+  grid-template-columns: 5rem auto;
+}
+
+.back {
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+
+#pause-btn svg,
+.back svg {
   transform: scale(0.45);
 }
 
@@ -123,10 +136,12 @@ section {
     transform: scale(0.95);
     font-size: 1.5rem;
   }
-  #game header > p {
+  #game header > p,
+  #howtoplay header > p {
     font-size: 1.5rem;
   }
-  #game header > div {
+  #game header > div,
+  #howtoplay header > div {
     transform: scale(0.7);
   }
 }

@@ -5,9 +5,13 @@ let raf;
 let mySnake;
 let running = false;
 let apple;
-let frames = 0;
-
-// alert("You can use arrow keys or ASWD or swipe to move the snake.");
+let score;
+let high;
+let highScore = 0;
+let pauseBtn;
+let gameContinued = false;
+let prevTime;
+let threshold = 200;
 
 // All indipendent fucntions lie here
 function dist(x1, x2, y1, y2) {
@@ -125,8 +129,6 @@ class Snake {
   draw() {
     ctx.fillStyle = "white";
     ctx.fillRect(this.x + 1, this.y + 1, scl - 2, scl - 2);
-    ctx.strokeStyle = "#616161";
-    ctx.strokeRect(this.x, this.y, scl, scl);
   }
 
   dir(velX, velY) {
@@ -148,6 +150,8 @@ class Snake {
       };
 
       this.tail++;
+      score.innerHTML = this.tail;
+      if (threshold > 80) threshold -= 0.5;
 
       newFood();
       drawFood(apple);
@@ -159,12 +163,20 @@ class Snake {
       let spot = this.fullSnake[i];
       let d = dist(this.x, spot.x, this.y, spot.y);
       if (d < 1) {
+        if (this.tail > highScore) {
+          highScore = this.tail;
+          high.textContent = highScore;
+        }
+
         this.fullSnake = [];
         this.tail = 0;
         alert("Game Over");
         running = false;
+        gameContinued = false;
         document.querySelector("#pause-btn").classList.toggle("paused");
+        score.innerHTML = 0;
         clearCanvas();
+        return;
       }
     }
   }
@@ -187,8 +199,6 @@ class Snake {
         scl - 2,
         scl - 2
       );
-      ctx.strokeStyle = "#616161";
-      ctx.strokeRect(this.fullSnake[i].x, this.fullSnake[i].y, scl, scl);
       this.fullSnake[i] = this.fullSnake[i + 1];
     }
 
@@ -201,6 +211,10 @@ class Snake {
       x: this.x,
       y: this.y,
     };
+
+    if (gameContinued == false) {
+      gameContinued = true;
+    }
 
     this.draw();
   }
@@ -234,8 +248,6 @@ function newFood() {
 
 function keyPressed(event) {
   const key = event.keyCode;
-  // console.log(key);
-
   switch (key) {
     case 65:
     case 37:
@@ -254,63 +266,69 @@ function keyPressed(event) {
       mySnake.dir(0, scl);
       break;
     case 32:
-      if (running) {
-        window.cancelAnimationFrame(raf);
-      } else {
-        raf = window.requestAnimationFrame(update);
-      }
-      running = !running;
-      document.querySelector("#pause-btn").classList.toggle("paused");
+      pauseGame();
       break;
   }
 }
 
 function update() {
-  frames++;
+  let now = Date.now();
 
-  if (frames >= 10) {
+  if (now - prevTime > threshold) {
     mySnake.update();
-    frames = 0;
+    prevTime = now;
   }
 
   if (running) window.requestAnimationFrame(update);
 }
 
-function clicked() {
-  clearCanvas();
-  mySnake.eatFood({ x: mySnake.x, y: mySnake.y });
-  mySnake.update();
+function resize() {
+  let gameHeader = document.querySelector("#game-head");
+  canvas.width = Math.floor(window.innerWidth / scl) * scl;
+  canvas.height =
+    Math.floor(
+      (window.innerHeight - gameHeader.getBoundingClientRect().height) / scl
+    ) * scl;
 }
+
+const pauseGame = () => {
+  if (running) {
+    window.cancelAnimationFrame(raf);
+  } else {
+    raf = window.requestAnimationFrame(update);
+    prevTime = Date.now();
+  }
+  running = !running;
+  pauseBtn.classList.toggle("paused");
+};
 
 function draw() {
   canvas = document.querySelector("canvas");
   ctx = canvas.getContext("2d");
 
-  let pauseBtn = document.querySelector("#game-head");
+  score = document.querySelector("#scoreNum");
+  high = document.querySelector("#highScore");
+  score.innerHTML = "0";
+
+  let gameHeader = document.querySelector("#game-head");
 
   canvas.width = Math.floor(window.innerWidth / scl) * scl;
   canvas.height =
     Math.floor(
-      (window.innerHeight - pauseBtn.getBoundingClientRect().height) / scl
+      (window.innerHeight - gameHeader.getBoundingClientRect().height) / scl
     ) * scl;
-  canvas.style.background = "#515151";
+  canvas.style.background = "#272b2f";
 
   mySnake = new Snake();
   newFood();
   drawFood(apple);
   mySnake.draw();
+  gameContinued = true;
 
   document.body.addEventListener("keydown", keyPressed);
 
-  pauseBtn.addEventListener("click", function (event) {
-    if (running) {
-      window.cancelAnimationFrame(raf);
-    } else {
-      raf = window.requestAnimationFrame(update);
-    }
-    running = !running;
-    pauseBtn.classList.toggle("paused");
-  });
+  pauseBtn = document.querySelector("#pause-btn");
+  pauseBtn.addEventListener("click", pauseGame);
 
   // Added swipe detection
   SwipeDetector.addEventListener("swipeLeft", function () {
@@ -330,5 +348,36 @@ function draw() {
   });
 }
 
-window.onload = draw;
-window.onresize = draw;
+window.onload = function () {
+  // For the play button
+  const playBtn = document.querySelector("#play");
+  playBtn.addEventListener("click", function () {
+    const active = document.querySelector(".active");
+    active.classList.remove("active");
+    document.querySelector("#game").classList.add("active");
+    if (!gameContinued) draw();
+  });
+
+  // For how to play
+  const howToBtn = document.querySelector("#howto");
+  howToBtn.addEventListener("click", function () {
+    const active = document.querySelector(".active");
+    active.classList.remove("active");
+    document.querySelector("#howtoplay").classList.add("active");
+  });
+
+  // Back button
+  document.querySelectorAll(".back").forEach((b) => {
+    b.addEventListener("click", function () {
+      if (b.classList.contains("playToHome") && running) {
+        pauseGame();
+      }
+
+      const active = document.querySelector(".active");
+      active.classList.remove("active");
+      document.querySelector("#home").classList.add("active");
+    });
+  });
+};
+
+window.onresize = resize;
