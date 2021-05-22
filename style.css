@@ -25,6 +25,10 @@ section {
   max-width: 100vw;
 }
 
+button {
+  cursor: pointer;
+}
+
 #home header,
 #howtoplay header,
 #game header {

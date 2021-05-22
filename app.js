@@ -303,9 +303,6 @@ const pauseGame = () => {
 };
 
 function draw() {
-  canvas = document.querySelector("canvas");
-  ctx = canvas.getContext("2d");
-
   score = document.querySelector("#scoreNum");
   high = document.querySelector("#highScore");
   score.innerHTML = "0";
@@ -349,6 +346,9 @@ function draw() {
 }
 
 window.onload = function () {
+  canvas = document.querySelector("canvas");
+  ctx = canvas.getContext("2d");
+
   // For the play button
   const playBtn = document.querySelector("#play");
   playBtn.addEventListener("click", function () {
@@ -356,6 +356,7 @@ window.onload = function () {
     active.classList.remove("active");
     document.querySelector("#game").classList.add("active");
     if (!gameContinued) draw();
+    resize();
   });
 
   // For how to play
