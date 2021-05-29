@@ -1,3 +1,5 @@
+alert("Please read How To Play first to know the controls :D");
+
 let canvas;
 let ctx;
 let scl = 20;
@@ -225,14 +227,14 @@ function newFood() {
   let appleX = randPoint(canvas.width);
   let appleY = randPoint(canvas.height);
 
-  for (let i = 0; i < mySnake.tail; i++) {
+  for (let i = 0; i < mySnake.tail; ) {
     let block = mySnake.fullSnake[i];
 
     if (block.x == appleX && block.y == apple.Y) {
       appleX = randPoint(canvas.width);
       appleY = randPoint(canvas.height);
       i = -1;
-    }
+    } else i++;
   }
 
   if (mySnake.x == appleX && mySnake.y == appleY) {
@@ -321,6 +323,8 @@ function draw() {
   drawFood(apple);
   mySnake.draw();
   gameContinued = true;
+
+  // mySnake.update();
 
   document.body.addEventListener("keydown", keyPressed);
 
