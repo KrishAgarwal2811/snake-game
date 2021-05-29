@@ -1,4 +1,4 @@
-alert("Please read How To Play first to know the controls :D");
+// alert("Please read How To Play first to know the controls :D");
 
 let canvas;
 let ctx;
