@@ -361,6 +361,7 @@ window.onload = function () {
     document.querySelector("#game").classList.add("active");
     if (!gameContinued) draw();
     resize();
+    pauseGame();
   });
 
   // For how to play
